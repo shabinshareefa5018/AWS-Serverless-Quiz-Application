@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AWS Quiz App</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f2f2f2;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:500px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+padding:10px;
+background:#0073e6;
+color:white;
+border:none;
+cursor:pointer;
+width:100%;
+margin-top:15px;
+}
+
+button:hover{
+background:#0059b3;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>AWS Quiz</h2>
+
+<label>Name</label>
+<input type="text" id="name"><br><br>
+  
+<label>Email</label>
+<input type="email" id="email"><br><br>
+
+<label>Phone</label>
+<input type="text" id="phone"><br><br>
+
+
+<h3>Question 1: What is AWS?</h3>
+
+<input type="radio" name="q1" value="correct"> Cloud Platform<br>
+<input type="radio" name="q1" value="wrong"> Programming Language<br>
+<input type="radio" name="q1" value="wrong"> Operating System<br>
+
+
+<h3>Question 2: What does EC2 provide?</h3>
+
+<input type="radio" name="q2" value="correct"> Virtual Servers<br>
+<input type="radio" name="q2" value="wrong"> Database<br>
+<input type="radio" name="q2" value="wrong"> Storage Only<br>
+
+
+<h3>Question 3: Which service stores NoSQL data?</h3>
+
+<input type="radio" name="q3" value="correct"> DynamoDB<br>
+<input type="radio" name="q3" value="wrong"> EC2<br>
+<input type="radio" name="q3" value="wrong"> CloudFront<br>
+
+<h3>Question 4: What does S3 stand for?</h3>
+
+<input type="radio" name="q4" value="correct"> Simple Storage Service<br>
+<input type="radio" name="q4" value="wrong"> Secure Storage Server<br>
+<input type="radio" name="q4" value="wrong"> System Storage Service<br>
+
+
+<h3>Question 5: Which AWS service is used for serverless computing?</h3>
+
+<input type="radio" name="q5" value="correct"> Lambda<br>
+<input type="radio" name="q5" value="wrong"> EC2<br>
+<input type="radio" name="q5" value="wrong"> RDS<br>
+
+
+<h3>Question 6: What does API Gateway do?</h3>
+
+<input type="radio" name="q6" value="correct"> Exposes APIs to clients<br>
+<input type="radio" name="q6" value="wrong"> Stores data<br>
+
+<input type="radio" name="q6" value="wrong"> Stores data<br>
+<input type="radio" name="q6" value="wrong"> Runs virtual machines<br>
+
+
+<h3>Question 7: Which AWS service is used for relational databases?</h3>
+
+<input type="radio" name="q7" value="correct"> RDS<br>
+<input type="radio" name="q7" value="wrong"> DynamoDB<br>
+<input type="radio" name="q7" value="wrong"> Lambda<br>
+
+
+<h3>Question 8: What does IAM stand for?</h3>
+
+<input type="radio" name="q8" value="correct"> Identity and Access Management<br>
+<input type="radio" name="q8" value="wrong"> Internal Access Manager<br>
+<input type="radio" name="q8" value="wrong"> Internet Access Module<br>
+
+
+<h3>Question 9: Which service provides scalable virtual servers?</h3>
+
+<input type="radio" name="q9" value="correct"> EC2<br>
+<input type="radio" name="q9" value="wrong"> CloudWatch<br>
+<input type="radio" name="q9" value="wrong"> Route53<br>
+
+
+<h3>Question 10: Which service monitors AWS resources?</h3>
+
+<input type="radio" name="q10" value="correct"> CloudWatch<br>
+<input type="radio" name="q10" value="wrong"> S3<br>
+<input type="radio" name="q10" value="wrong"> EC2<br>
+
+<button onclick="submitQuiz()">Submit Quiz</button>
+
+</div>
+
+<script>
+
+function submitQuiz(){
+
+let score = 0;
+let attempted = 0;
+
+const answers = document.querySelectorAll('input[type="radio"]:checked');
+
+attempted = answers.length;
+
+answers.forEach((ans)=>{
+if(ans.value === "correct"){
+score++;
+}
+});
+
+const data = {
+name: document.getElementById("name").value,
+email: document.getElementById("email").value,
+phone: document.getElementById("phone").value,
+score: score,
+attempted: attempted
+};
+
+fetch("https://bslhqdr87i.execute-api.ap-south-1.amazonaws.com/prod/submit",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+.then(response => response.json())
+.then(result => {
+
+alert("Quiz submitted successfully! Score: " + score);
+
+})
+.catch(error => {
+
+alert("Error submitting quiz");
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
+
