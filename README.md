@@ -78,17 +78,6 @@ timestamp: 2026-03-11
 
 ---
 
-## Screenshots
-
-Add screenshots showing:
-
-* EC2 instance running
-* Quiz web interface
-* API Gateway endpoint
-* Lambda function code
-* DynamoDB table with stored data
-
----
 
 ## Future Improvements
 
